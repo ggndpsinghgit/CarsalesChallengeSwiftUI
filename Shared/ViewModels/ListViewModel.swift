@@ -3,7 +3,7 @@
 import Combine
 import CarsalesAPI
 
-class ListProvider: ObservableObject {
+class ListViewModel: ObservableObject {
     @Published private(set) var cars: [CarsalesAPI.ListItem] = []
     @Published var selectedCar: String?
     private let api = CarsalesAPI()

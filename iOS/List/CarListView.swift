@@ -4,14 +4,14 @@ import SwiftUI
 import CarsalesAPI
 
 struct CarListView: View {
-    @ObservedObject var provider = ListProvider()
+    @ObservedObject var listViewModel = ListViewModel()
     @State var isShowingDetails: Bool = false
     
     var body: some View {
         ZStack {
             NavigationView {
-                CarsGridView(cars: provider.cars) { path in
-                    provider.selectedCar = path
+                CarsGridView(cars: listViewModel.cars) { path in
+                    listViewModel.selectedCar = path
                     isShowingDetails = true
                 }
                 .navigationTitle("Carsales.com.au")
@@ -24,10 +24,10 @@ struct CarListView: View {
                     .edgesIgnoringSafeArea(.all)
             }
         }
-        .onAppear(perform: provider.fetchList)
+        .onAppear(perform: listViewModel.fetchList)
         .sheet(isPresented: $isShowingDetails) {
             CarDetailsView()
-                .environmentObject(provider)
+                .environmentObject(listViewModel)
         }
     }
 }
@@ -65,6 +65,5 @@ struct CarsGridView: View {
 struct CarListView_Previews: PreviewProvider {
     static var previews: some View {
         CarListView()
-            .preferredColorScheme(.dark)
     }
 }

@@ -3,7 +3,7 @@
 import Combine
 import CarsalesAPI
 
-class DetailsProvider: ObservableObject {
+class DetailsViewModel: ObservableObject {
     @Published private(set) var car: CarsalesAPI.CarDetails?
     @Published var showFailedAlert: Bool = false
     private let api = CarsalesAPI()

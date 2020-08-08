@@ -1,45 +1,7 @@
-//  Created by Gagandeep Singh on 6/8/20.
+//  Created by Gagandeep Singh on 8/8/20.
 
 import SwiftUI
 import CarsalesAPI
-
-struct CarDetailsView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var listProvider: ListProvider
-    @ObservedObject var provider = DetailsProvider()
-    
-    var body: some View {
-        Group {
-            NavigationView {
-                ScrollView {
-                    if let car = provider.car {
-                        CarDetailsInnerView(car: car)
-                    } else {
-                        CarDetailsInnerView(car: .sample)
-                            .transition(.scale)
-                            .redacted(reason: .placeholder)
-                    }
-                }
-                .onAppear {
-                    if let path = listProvider.selectedCar {
-                        provider.fetchDetails(path: path)
-                    }
-                }
-                .alert(isPresented: $provider.showFailedAlert) {
-                    Alert(title: Text("Error!"), message: Text("Failed to load the car details."), dismissButton: .default(Text("OK")) {
-                        presentationMode.wrappedValue.dismiss()
-                    })
-                }
-                .navigationTitle(provider.car?.title ?? "")
-                .navigationBarItems(trailing:
-                    Button("Done") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                )
-            }
-        }
-    }
-}
 
 struct CarDetailsInnerView: View {
     let car: CarsalesAPI.CarDetails
@@ -96,25 +58,8 @@ struct CarDetailsInnerView: View {
     }
 }
 
-struct PhotoCarousel: View {
-    let photos: [String]
-    
-    var body: some View {
-        TabView {
-            ForEach(photos, id: \.self) { path in
-                SyncImageView(path: path)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(UIColor.secondarySystemBackground))
-            }
-        }
-        .aspectRatio(1.5, contentMode: .fit)
-        .tabViewStyle(PageTabViewStyle())
-    }
-}
-
-struct CarDetailsView_Previews: PreviewProvider {
+struct CarDetailsInnerView_Previews: PreviewProvider {
     static var previews: some View {
-        CarDetailsView()
-            .environmentObject(ListProvider())
+        CarDetailsInnerView(car: .sample)
     }
 }

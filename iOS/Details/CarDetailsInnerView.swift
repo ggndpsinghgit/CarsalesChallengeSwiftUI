@@ -1,32 +1,7 @@
-//  Created by Gagandeep Singh on 6/8/20.
+//  Created by Gagandeep Singh on 8/8/20.
 
 import SwiftUI
 import CarsalesAPI
-
-struct CarDetailsView: View {
-    @ObservedObject var provider = DetailsProvider()
-    let path: String
-    
-    var body: some View {
-        Group {
-            ScrollView {
-                if let car = provider.car {
-                    CarDetailsInnerView(car: car)
-                } else {
-                    CarDetailsInnerView(car: .sample)
-                        .transition(.scale)
-                        .redacted(reason: .placeholder)
-                }
-            }
-            .onAppear {
-                provider.fetchDetails(path: path)
-            }
-            .alert(isPresented: $provider.showFailedAlert) {
-                Alert(title: Text("Error!"), message: Text("Failed to load the car details."), dismissButton: .default(Text("OK")))
-            }
-        }
-    }
-}
 
 struct CarDetailsInnerView: View {
     let car: CarsalesAPI.CarDetails
@@ -83,27 +58,9 @@ struct CarDetailsInnerView: View {
     }
 }
 
-struct PhotoCarousel: View {
-    let photos: [String]
-    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 240, maximum: 360))]
-    
-    var body: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(photos, id: \.self) { path in
-                    AsyncImageView(path: path)
-                        .aspectRatio(1.5, contentMode: .fill)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                }
-            }
-            .padding()
-        }
-        .frame(height: 300)
-    }
-}
 
-struct CarDetailsView_Previews: PreviewProvider {
+struct CarDetailsInnerView_Previews: PreviewProvider {
     static var previews: some View {
-        CarDetailsView(path: "")
+        CarDetailsInnerView(car: .sample)
     }
 }
