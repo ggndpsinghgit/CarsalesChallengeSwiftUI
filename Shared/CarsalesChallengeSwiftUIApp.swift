@@ -6,7 +6,7 @@ import SwiftUI
 struct CarsalesChallengeSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CarListView()
         }
     }
 }

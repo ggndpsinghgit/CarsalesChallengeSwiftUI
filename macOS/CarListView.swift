@@ -9,23 +9,29 @@ struct CarListView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    if provider.cars.isEmpty {
-                        ForEach(makeRedactedViews()) { car in
-                            CarListCellView(car: car)
-                        }.redacted(reason: .placeholder)
-                    } else {
-                        ForEach(provider.cars) { car in
-                            NavigationLink(destination: CarDetailsView(path: car.detailsURL)) {
-                                CarListCellView(car: car)
+            Group {
+                if provider.cars.isEmpty {
+                    List(provider.cars) { car in
+                        CarListCellView(car: car)
+                    }
+                    .redacted(reason: .placeholder)
+                } else {
+                    List {Section(header: ListHeader()) {
+                            ForEach(provider.cars) { car in
+                                NavigationLink(destination: CarDetailsView(path: car.detailsURL)) {
+                                    CarListCellView(car: car)
+                                }
                             }
-                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
             }
+            .frame(minWidth: 300)
+            .listStyle(SidebarListStyle())
             .navigationTitle("Carsales.com.au")
+            .padding(.top, 24)
+            
+            Text("Select a car to start").font(.title)
         }
         .onAppear {
             provider.fetchList()
@@ -36,6 +42,15 @@ struct CarListView: View {
 extension CarListView {
     private func makeRedactedViews() -> [CarsalesAPI.ListItem] {
         [.sample, .sample, .sample, .sample]
+    }
+}
+
+struct ListHeader: View {
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Carsales.com.au").font(.largeTitle).foregroundColor(.primary)
+            Divider()
+        }
     }
 }
 

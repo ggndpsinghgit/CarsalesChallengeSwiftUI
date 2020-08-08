@@ -4,28 +4,27 @@ import SwiftUI
 import CarsalesAPI
 
 struct CarDetailsView: View {
-    let path: String
     @ObservedObject var provider = DetailsProvider()
+    let path: String
     
     var body: some View {
-        ScrollView {
-            if let car = provider.car {
-                CarDetailsInnerView(car: car)
-            } else {
-                CarDetailsInnerView(car: .sample)
-                    .redacted(reason: .placeholder)
+        Group {
+            ScrollView {
+                if let car = provider.car {
+                    CarDetailsInnerView(car: car)
+                } else {
+                    CarDetailsInnerView(car: .sample)
+                        .transition(.scale)
+                        .redacted(reason: .placeholder)
+                }
+            }
+            .onAppear {
+                provider.fetchDetails(path: path)
+            }
+            .alert(isPresented: $provider.showFailedAlert) {
+                Alert(title: Text("Error!"), message: Text("Failed to load the car details."), dismissButton: .default(Text("OK")))
             }
         }
-        .navigationTitle(provider.car?.title ?? "")
-        .onAppear {
-            provider.fetchDetails(path: path)
-        }
-    }
-}
-
-struct CarDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarDetailsView(path: "")
     }
 }
 
@@ -35,11 +34,7 @@ struct CarDetailsInnerView: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
-                AsyncImageView(path: car.photos[0])
-                    .background(Color(UIColor.secondarySystemBackground))
-                    .aspectRatio(/*@START_MENU_TOKEN@*/1.5/*@END_MENU_TOKEN@*/, contentMode: .fit)
-                    .foregroundColor(.primary)
-                
+                PhotoCarousel(photos: car.photos)
                 
                 VStack(alignment: .leading, spacing: 24) {
                     VStack(alignment: .leading, spacing: 8) {
@@ -85,5 +80,30 @@ struct CarDetailsInnerView: View {
                 .padding(24)
             }
         }
+    }
+}
+
+struct PhotoCarousel: View {
+    let photos: [String]
+    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 240, maximum: 360))]
+    
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(photos, id: \.self) { path in
+                    AsyncImageView(path: path)
+                        .aspectRatio(1.5, contentMode: .fill)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                }
+            }
+            .padding()
+        }
+        .frame(height: 300)
+    }
+}
+
+struct CarDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        CarDetailsView(path: "")
     }
 }
