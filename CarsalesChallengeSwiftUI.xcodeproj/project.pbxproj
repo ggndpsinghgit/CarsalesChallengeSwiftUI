@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E66FD15A24DE6A7C00741003 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66FD15924DE6A7C00741003 /* Blur.swift */; };
+		E66FD15B24DE6A7C00741003 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66FD15924DE6A7C00741003 /* Blur.swift */; };
 		E676A65724DBA2F100E999AB /* ListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65624DBA2F100E999AB /* ListProvider.swift */; };
 		E676A65824DBA2F100E999AB /* ListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65624DBA2F100E999AB /* ListProvider.swift */; };
 		E676A65A24DBA31C00E999AB /* DetailsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65924DBA31C00E999AB /* DetailsProvider.swift */; };
 		E676A65B24DBA31C00E999AB /* DetailsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65924DBA31C00E999AB /* DetailsProvider.swift */; };
 		E676A65D24DBB42000E999AB /* CarListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65C24DBB41200E999AB /* CarListView.swift */; };
-		E676A65E24DBB46200E999AB /* CarListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DAEC3E24DB887500F563CB /* CarListCellView.swift */; };
 		E676A66024DBB46F00E999AB /* CarDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676A65F24DBB46F00E999AB /* CarDetailsView.swift */; };
 		E6AD989024DD4008005354B9 /* CarsalesAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E6AD988F24DD4008005354B9 /* CarsalesAPI */; };
 		E6AD989224DD4FC0005354B9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AD989124DD4FC0005354B9 /* ImageLoader.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E66FD15924DE6A7C00741003 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		E676A65624DBA2F100E999AB /* ListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProvider.swift; sourceTree = "<group>"; };
 		E676A65924DBA31C00E999AB /* DetailsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsProvider.swift; sourceTree = "<group>"; };
 		E676A65C24DBB41200E999AB /* CarListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListView.swift; sourceTree = "<group>"; };
@@ -145,11 +147,11 @@
 				E6AFBD5F24DA5233008F88F7 /* ContentView.swift */,
 				E676A65624DBA2F100E999AB /* ListProvider.swift */,
 				E676A65924DBA31C00E999AB /* DetailsProvider.swift */,
-				E6DAEC3E24DB887500F563CB /* CarListCellView.swift */,
 				E6AD989124DD4FC0005354B9 /* ImageLoader.swift */,
 				E6AD989424DD50C4005354B9 /* AsyncImage.swift */,
 				E6D6343324DE462F00BD7C15 /* SyncImage.swift */,
 				E6AD989724DD690B005354B9 /* ImageCache.swift */,
+				E66FD15924DE6A7C00741003 /* Blur.swift */,
 				E6AFBD6024DA5234008F88F7 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -171,6 +173,7 @@
 			children = (
 				E6AFBD6824DA5234008F88F7 /* Info.plist */,
 				E6DAEC3C24DB881100F563CB /* CarListView.swift */,
+				E6DAEC3E24DB887500F563CB /* CarListCellView.swift */,
 				E6E6450324DB925100F42340 /* CarDetailsView.swift */,
 			);
 			path = iOS;
@@ -378,6 +381,7 @@
 				E6AFBD8924DA5235008F88F7 /* ContentView.swift in Sources */,
 				E6E6450424DB925100F42340 /* CarDetailsView.swift in Sources */,
 				E676A65724DBA2F100E999AB /* ListProvider.swift in Sources */,
+				E66FD15A24DE6A7C00741003 /* Blur.swift in Sources */,
 				E6DAEC3F24DB887500F563CB /* CarListCellView.swift in Sources */,
 				E6AFBD8724DA5234008F88F7 /* CarsalesChallengeSwiftUIApp.swift in Sources */,
 				E6D6343424DE462F00BD7C15 /* SyncImage.swift in Sources */,
@@ -390,10 +394,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E66FD15B24DE6A7C00741003 /* Blur.swift in Sources */,
 				E6AD989924DD690B005354B9 /* ImageCache.swift in Sources */,
 				E6AFBD8A24DA5235008F88F7 /* ContentView.swift in Sources */,
 				E6AD989624DD50C4005354B9 /* AsyncImage.swift in Sources */,
-				E676A65E24DBB46200E999AB /* CarListCellView.swift in Sources */,
 				E676A65D24DBB42000E999AB /* CarListView.swift in Sources */,
 				E676A65B24DBA31C00E999AB /* DetailsProvider.swift in Sources */,
 				E6AFBD8824DA5235008F88F7 /* CarsalesChallengeSwiftUIApp.swift in Sources */,

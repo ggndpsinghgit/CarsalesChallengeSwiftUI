@@ -4,7 +4,7 @@ import SwiftUI
 import CarsalesAPI
 
 struct CarDetailsView: View {
-    let path: String
+    @EnvironmentObject var listProvider: ListProvider
     @ObservedObject var provider = DetailsProvider()
     
     var body: some View {
@@ -13,12 +13,15 @@ struct CarDetailsView: View {
                 CarDetailsInnerView(car: car)
             } else {
                 CarDetailsInnerView(car: .sample)
+                    .transition(.scale)
                     .redacted(reason: .placeholder)
             }
         }
         .navigationTitle(provider.car?.title ?? "")
         .onAppear {
-            provider.fetchDetails(path: path)
+            if let path = listProvider.selectedCar {
+                provider.fetchDetails(path: path)
+            }
         }
     }
 }
@@ -78,13 +81,6 @@ struct CarDetailsInnerView: View {
     }
 }
 
-
-struct CarDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CarDetailsView(path: "v3/9ea9359e-c29d-4493-ad02-69662dcb5586")
-    }
-}
-
 struct PhotoCarousel: View {
     let photos: [String]
     
@@ -94,11 +90,16 @@ struct PhotoCarousel: View {
                 SyncImageView(path: path)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(UIColor.secondarySystemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(10)
             }
         }
         .aspectRatio(1.5, contentMode: .fit)
         .tabViewStyle(PageTabViewStyle())
+    }
+}
+
+struct CarDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        CarDetailsView()
+            .environmentObject(ListProvider())
     }
 }
