@@ -18,6 +18,7 @@ struct AsyncImageView: View {
                     .resizable()
             } else {
                 Image(systemName: "car")
+                    .resizable()
             }
         }
         .onAppear {
