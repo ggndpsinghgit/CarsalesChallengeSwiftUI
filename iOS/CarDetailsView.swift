@@ -4,23 +4,31 @@ import SwiftUI
 import CarsalesAPI
 
 struct CarDetailsView: View {
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var listProvider: ListProvider
     @ObservedObject var provider = DetailsProvider()
     
     var body: some View {
-        ScrollView {
-            if let car = provider.car {
-                CarDetailsInnerView(car: car)
-            } else {
-                CarDetailsInnerView(car: .sample)
-                    .transition(.scale)
-                    .redacted(reason: .placeholder)
+        Group {
+            ScrollView {
+                if let car = provider.car {
+                    CarDetailsInnerView(car: car)
+                } else {
+                    CarDetailsInnerView(car: .sample)
+                        .transition(.scale)
+                        .redacted(reason: .placeholder)
+                }
             }
-        }
-        .navigationTitle(provider.car?.title ?? "")
-        .onAppear {
-            if let path = listProvider.selectedCar {
-                provider.fetchDetails(path: path)
+            .navigationTitle(provider.car?.title ?? "")
+            .onAppear {
+                if let path = listProvider.selectedCar {
+                    provider.fetchDetails(path: path)
+                }
+            }
+            .alert(isPresented: $provider.showFailedAlert) {
+                Alert(title: Text("Error!"), message: Text("Failed to load cars details. Try again later."), dismissButton: .default(Text("OK")) {
+                    presentationMode.wrappedValue.dismiss()
+                })
             }
         }
     }

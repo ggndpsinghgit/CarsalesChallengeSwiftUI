@@ -5,12 +5,16 @@ import CarsalesAPI
 
 class DetailsProvider: ObservableObject {
     @Published private(set) var car: CarsalesAPI.CarDetails?
-    let api = CarsalesAPI()
+    @Published var showFailedAlert: Bool = false
+    private let api = CarsalesAPI()
     
     func fetchDetails(path: String) {
-        api.getDetails(path: path) { details in
-            if case let .success(car) = details {
+        api.getDetails(path: path) { result in
+            switch result {
+            case .success(let car):
                 self.car = car
+            case .failure:
+                self.showFailedAlert = true
             }
         }
     }
