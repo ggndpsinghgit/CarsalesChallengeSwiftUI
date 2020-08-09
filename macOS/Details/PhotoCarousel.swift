@@ -4,7 +4,6 @@ import SwiftUI
 
 struct PhotoCarousel: View {
     let photos: [String]
-    private let columns: [GridItem] = [GridItem(.adaptive(minimum: 240, maximum: 360))]
     
     var body: some View {
         ScrollView(.horizontal) {

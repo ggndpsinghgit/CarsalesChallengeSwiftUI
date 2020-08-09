@@ -15,21 +15,11 @@ struct CarDetailsView: View {
                 ScrollView {
                     if let car = viewModel.car {
                         CarDetailsInnerView(car: car)
+                            .animation(.easeIn(duration: 0.2))
                     } else {
                         CarDetailsInnerView(car: .sample)
-                            .transition(.scale)
                             .redacted(reason: .placeholder)
                     }
-                }
-                .onAppear {
-                    if let path = listViewModel.selectedCar {
-                        viewModel.fetchDetails(path: path)
-                    }
-                }
-                .alert(isPresented: $viewModel.showFailedAlert) {
-                    Alert(title: Text("Error!"), message: Text("Failed to load the car details."), dismissButton: .default(Text("OK")) {
-                        presentationMode.wrappedValue.dismiss()
-                    })
                 }
                 .navigationTitle(viewModel.car?.title ?? "")
                 .navigationBarItems(trailing:
@@ -38,6 +28,19 @@ struct CarDetailsView: View {
                     }
                 )
             }
+        }
+        .onAppear {
+            if let path = listViewModel.selectedCar {
+                viewModel.fetchDetails(path: path)
+            }
+        }
+        .alert(isPresented: $viewModel.showFailedAlert) {
+            Alert(
+                title: Text("Error!"),
+                message: Text("Failed to load the car details."),
+                dismissButton: .default(Text("OK")) {
+                    presentationMode.wrappedValue.dismiss()
+                })
         }
     }
 }

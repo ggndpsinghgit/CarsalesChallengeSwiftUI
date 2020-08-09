@@ -48,9 +48,10 @@ struct CarsGridView: View {
                 } else {
                     ForEach(cars) { car in
                         CarListCellView(car: car)
-                        .onTapGesture {
-                            tapHandler(car.detailsURL)
-                        }
+                            .animation(.easeIn(duration: 0.2))
+                            .onTapGesture {
+                                tapHandler(car.detailsURL)
+                            }
                     }
                 }
             }
