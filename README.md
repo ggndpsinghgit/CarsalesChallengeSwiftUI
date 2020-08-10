@@ -15,13 +15,13 @@ MVVM
 
 #### Requirement 1
 
-- An API to pull/decode date from the REST endpoint
+- An API to pull/decode data from the REST endpoint.
 
 ##### Fulfilment
 
 - Created the CarsalesAPI Swift Package that handles the above.
 - Why a package?
-- Because the plan was the create two apps, one with auto-layout and another in SwiftUI. Hence, a shared library was the best approach.
+- Because the plan was to create two apps, one with auto-layout and another in SwiftUI. Hence, a shared library was the best approach.
 - Why two apps and not just add a SwiftUI version of the UI in the same app?
 - For SwiftUI 2.0. It has a few extra APIs that helped in developing the required app.
 
@@ -34,12 +34,13 @@ MVVM
 
 ##### Fulfilment
 
-- A `LazyVGrid` is the obvious choice to display a grid of items.
+- A `LazyVGrid` is the best choice to display a flexible grid of items.
 - The `ListImageView` has an embedded `AsyncImageView` that loads the image asynchronously using Combine.
-- Rest is just Text, VStack & HStack.
+- Rest is just `Text`, `VStack` & `HStack`.
 - The empty state is created by using sample data and `redacted` view modifier.
 
-❤️ Building UI in SwiftUI is a joy!
+❤️ Building UI in SwiftUI is such a joy!
+
 
 #### Requirement 3
 
@@ -52,7 +53,7 @@ MVVM
 - The `PhotoCarousel` is created using a `TabView` with `SyncImageView` embeded in each tab. Added paging support using `PageTabViewStyle()`.
 
 ##### Issues
-`PhotoCarousel` was a bit tricky because of the paging. It seems that `TabView` does not properly update when its children tabs updated. Hence, when the `AsyncImageView` was used inside the tabs, the image would not show until we moved away from the tab and come back. This was not an issue if we used an `HStack` embedded in a `ScrollView`. But that did not give us paging.
+`PhotoCarousel` was a bit tricky because of the paging. It seems that `TabView` does not properly update when its children update. Hence, when the `AsyncImageView` was used inside the tabs, the image would not show until we moved away from the tab and came back. This was not an issue if we used an `HStack` embedded in a `ScrollView`. But that did not give us paging.
 
 So, there was a choice to be made. Have paging but load images synchronously or have a scrolling list of images without paging, but the images load asynchronously. Aesthetics over Performance.
 
@@ -91,7 +92,7 @@ Same as the iOS app
 ##### Fulfilment
 
 - The views are laid-out within a `VStack` embedded in a `ScrollView`. Pretty much the same as in the auto-layout version of the app.
-- The `PhotoCarousel` is created using a `HStack` embedded in a `ScrollView`. And if you remember the issue with the carousel in the iOS App, you'd know that we can download images asynchronously in a stack view. So, I did that. Mainly because `TabView` behaves very differently on macOS. But, we did get Performance over Aesthetics, so the world is balanced once again.
+- The `PhotoCarousel` is created using a `HStack` embedded in a `ScrollView`. And if you remember the issue with the carousel in the iOS App, you'd know that we can download images asynchronously in an `HStack`. So, I did that. Mainly because `TabView` behaves very differently on macOS. But, we did get Performance over Aesthetics, so the world is balanced once again.
 
 
 ### Dependencies
